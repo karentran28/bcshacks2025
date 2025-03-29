@@ -1,35 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useRef } from 'react'
 
 const MicPlayback = () => {
-  const [audioContext, setAudioContext] = useState<AudioContext | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
+  const audioContextRef = useRef<AudioContext | null>(null)
+  const micSourceRef = useRef<MediaStreamAudioSourceNode | null>(null)
 
   const startMic = async () => {
     if (isPlaying) return
-    const stream = await navigator.mediaDevices.getUserMedia({ 
+
+    const stream = await navigator.mediaDevices.getUserMedia({
       audio: {
         echoCancellation: false,
         noiseSuppression: false,
         autoGainControl: false,
-      } 
+      },
     })
-    const context = new AudioContext({
-      latencyHint: 0.001, sampleRate: 48000
-    })
-    const source = context.createMediaStreamSource(stream)
-    const gainNode = context.createGain()
-    gainNode.gain.value = 1.0
 
-    source.connect(gainNode).connect(context.destination)
-    setAudioContext(context)
+    const context = new AudioContext({
+      latencyHint: 'playback',
+    })
+
+    const micSource = context.createMediaStreamSource(stream)
+    micSource.connect(context.destination)
+
+    audioContextRef.current = context
+    micSourceRef.current = micSource
     setIsPlaying(true)
   }
 
   const stopMic = () => {
-    if (audioContext) {
-      audioContext.close()
-      setAudioContext(null)
-    }
+    micSourceRef.current?.disconnect()
+    audioContextRef.current?.close()
+
+    micSourceRef.current = null
+    audioContextRef.current = null
     setIsPlaying(false)
   }
 
