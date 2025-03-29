@@ -1,0 +1,20 @@
+
+.title-text {
+    font-size: 6rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #e7166b, #821ced);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.25rem;
+}
+
+.slogan-text {
+    color: var(--text-color);
+    font-weight: 400;
+    font-size: 1.5rem;
+}
+
+.get-started-btn {
+
+}
+  
