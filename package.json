@@ -1,0 +1,38 @@
+{
+  "name": "bcshacks2025",
+  "version": "1.0.0",
+  "description": "Readme for the project. Update later",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karentran28/bcshacks2025.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karentran28/bcshacks2025/issues"
+  },
+  "homepage": "https://github.com/karentran28/bcshacks2025#readme",
+  "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.6",
+    "@storybook/addon-essentials": "^8.6.11",
+    "@storybook/addon-onboarding": "^8.6.11",
+    "@storybook/blocks": "^8.6.11",
+    "@storybook/experimental-addon-test": "^8.6.11",
+    "@storybook/react": "^8.6.11",
+    "@storybook/react-vite": "^8.6.11",
+    "@storybook/test": "^8.6.11",
+    "@vitest/browser": "^3.0.9",
+    "@vitest/coverage-v8": "^3.0.9",
+    "playwright": "^1.51.1",
+    "prop-types": "^15.8.1",
+    "storybook": "^8.6.11",
+    "vitest": "^3.0.9"
+  }
+}
