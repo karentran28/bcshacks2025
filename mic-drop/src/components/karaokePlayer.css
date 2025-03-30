@@ -113,3 +113,11 @@
   object-fit: cover;
   border-radius: 8px;
 }
+
+.media-buttons {
+  display: flex;
+  justify-content: center; /* Center the buttons horizontally */
+  align-items: center;
+  gap: 1rem; /* Space between buttons */
+  margin-top: 0.5rem;
+}

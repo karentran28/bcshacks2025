@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { parseLRC, LrcLine } from './parseLRC'
 import './KaraokePlayer.css'
+import MicPlayback from './AudioPlayback'
 
 interface Props {
   songTitle: string
@@ -131,9 +132,12 @@ const KaraokePlayer: React.FC<Props> = ({ songTitle, audioSrc, lrcSrc, albumArt}
           className="progress-bar"
         />
 
-        <button onClick={togglePlay} className="play-button">
-          {isPlaying ? '⏸' : '▶'}
-        </button>
+        <div className="media-buttons">
+          <button onClick={togglePlay} className="play-button">
+            {isPlaying ? '⏸' : '▶'}
+          </button>
+          <MicPlayback />
+        </div>
       </div>
     </div>
   )
