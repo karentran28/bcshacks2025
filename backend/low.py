@@ -3,6 +3,7 @@ import librosa
 import numpy as np
 from collections import Counter
 import noisereduce as nr
+import json
 
 DURATION = 5
 SAMPLE_RATE = 44100
@@ -25,6 +26,8 @@ valid_pitches = valid_pitches[(valid_pitches >= FMIN) & (valid_pitches <= FMAX)]
 
 if len(valid_pitches) == 0:
     print("No valid pitch detected.")
+    with open("low_note_pitch.json", "w") as f:
+        json.dump({"note": None, "error": "No valid pitch detected"}, f)
     exit()
 
 #Debug log all detected pitches
@@ -37,5 +40,5 @@ most_common_note = Counter(rounded_notes).most_common(1)[0][0]
 
 print(f"Detected lowest note: {most_common_note}")
 
-with open("low_note_pitch.txt", "w") as f:
-    f.write(most_common_note)
+with open("low_note_pitch.json", "w") as f:
+    json.dump({"note": most_common_note}, f)

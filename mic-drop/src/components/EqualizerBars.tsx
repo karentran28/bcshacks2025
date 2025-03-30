@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import './EqualizerBars.css';
+import '../index.css'
 
 const BAR_COUNT = 20;
 const MIN_FREQ = 75;  // Hz
-const MAX_FREQ = 500; // Hz
+const MAX_FREQ = 1100; // Hz
 
 const EqualizerBars: React.FC = () => {
   const [heights, setHeights] = useState<number[]>(Array(BAR_COUNT).fill(1));
@@ -52,7 +53,6 @@ const EqualizerBars: React.FC = () => {
           const endBin = minBin + Math.floor(((i + 1) / BAR_COUNT) * binRange);
           let sum = 0;
           let count = 0;
-          console.log(dataArray.slice(minBin, maxBin + 1));
           for (let j = startBin; j < endBin; j++) {
             sum += dataArray[j];
             count++;

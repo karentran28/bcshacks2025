@@ -1,24 +1,18 @@
-import React, { useState } from 'react'
-import KaraokePlayer from './components/karaokePlayer.tsx'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LandingPage from './pages/LandingPage.tsx'
+import LowPage from './pages/LowPage.tsx'
 
 function App() {
   const [viewingLyrics, setViewingLyrics] = useState(true)
 
   return (
-    <div>
-      {viewingLyrics ? (
-        <KaraokePlayer
-          songTitle="That\'s What I Like - Bruno Mars"
-          audioSrc="/1/That's What I Like - Bruno Mars.mp3"
-          lrcSrc="/1/That's What I Like - Bruno Mars.lrc"
-          albumArt="/1/That's What I Like - Bruno Mars.jpeg"
-          onBack={() => setViewingLyrics(false)}
-        />
-      ) : (
-        <button onClick={() => setViewingLyrics(true)}>Open Lyrics Player</button>
-      )}
-    </div>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/low" element={<LowPage />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

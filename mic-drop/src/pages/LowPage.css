@@ -1,0 +1,96 @@
+
+  
+  .title-text {
+    font-size: 6rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #e7166b, #821ced);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.25rem;
+  }
+  
+  .slogan-text {
+    color: var(--text-color);
+    font-weight: 400;
+    font-size: 1.5rem;
+  }
+
+  .button {
+    width: 128px;
+    height: 64px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--accent-color);
+    border-radius: 8px;
+    border: 1px solid var(--accent-color);
+    cursor: pointer;
+    transition: box-shadow 0.25s, border-color 0.25s;
+  }
+  
+  .button:hover {
+    border-color: var(--header-color);
+    box-shadow: 0 0 0 1px var(--header-color);
+    transform: scale(1.05);
+  }
+  
+  .button-mic {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+  }
+  
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+.recording-glow {
+    .recording-glow {
+        position: relative;
+        border: none;
+        animation: pulse-glow 1.5s ease-in-out infinite;
+        z-index: 0;
+      }
+      
+      .recording-glow::before {
+        content: '';
+        position: absolute;
+        inset: -3px;
+        z-index: -1;
+        border-radius: inherit;
+        background: linear-gradient(45deg, #e7166b, #821ced, #e7166b);
+        background-size: 200% 200%;
+        animation: gradient-flow 3s linear infinite;
+        filter: blur(8px);
+        opacity: 0.8;
+      }
+    }      
+
+  
+    @keyframes pulse-glow {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 0.8;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 1;
+        }
+      }
+      
+      @keyframes gradient-flow {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      
