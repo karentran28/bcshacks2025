@@ -49,7 +49,7 @@ const HighPage: React.FC<{ setIsRecording: (v: boolean) => void }> = ({
       <h1 className="title-text">
         Let out your highest ‘eee’ – hold it for 5 seconds.
       </h1>
-      <h3>Keep it going as the glow moves</h3>
+      <h3 className='hint'>Keep it going as the glow moves</h3>
 
       <div className="content-wrapper">
         <button

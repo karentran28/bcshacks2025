@@ -13,16 +13,12 @@
   background-color: var(--background-color);
 }
 
-
 #root {
-  max-width: 1280px;
   margin: 0 auto;
+  padding: 2rem;
   text-align: center;
-  height: 100vh;        /* Sets #root to the full viewport height */
-  overflow-y: auto;     /* Enables vertical scrolling within #root */
-  padding: 0;           /* Removes padding to manage it elsewhere */
-  box-sizing: border-box; /* Ensures padding doesn’t affect height */
 }
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -33,8 +29,10 @@ a:hover {
 }
 body {
   margin: 0;
+  display: flex;
   min-width: 320px;
   min-height: 100vh;
+  overflow-y: auto; /* Ensures body scrolls if content overflows */
 }
 button {
   border-radius: 8px;

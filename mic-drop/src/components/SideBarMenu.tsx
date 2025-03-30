@@ -1,9 +1,10 @@
 import React from "react";
 import "./SidebarMenu.css";
 
+// --- CHANGE 1: Updated the type to include "challenge" explicitly ---
 interface SidebarMenuProps {
-  selectedFilter: string;
-  setSelectedFilter: (value: string) => void;
+  selectedFilter: "suggested" | "all" | "challenge"; // Added "challenge"
+  setSelectedFilter: (value: "suggested" | "all" | "challenge") => void; // Updated type
   searchQuery: string;
   setSearchQuery: (value: string) => void;
   genres: string[];
@@ -47,6 +48,16 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
         }}
       >
         All Songs
+      </li>
+      {/* --- CHANGE 2: Added "Challenge Yourself" filter option --- */}
+      <li
+        className={selectedFilter === "challenge" ? "active" : ""}
+        onClick={() => {
+          setSelectedFilter("challenge");
+          setSelectedGenre(null);
+        }}
+      >
+        Challenge Yourself
       </li>
     </ul>
 

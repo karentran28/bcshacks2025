@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Add this
+import { useNavigate } from "react-router-dom"; 
 import SongCard from "../components/SongCard";
 import SidebarMenu from "../components/SideBarMenu";
 import { supabase } from "../supabaseClient";
 import logo from "/assets/logo.webp";
-
 import "./SongListPage.css";
 
 interface Song {
@@ -17,20 +16,26 @@ interface Song {
   highestPitch: number;
   LRC: string;
   instrumental: string;
-  songID: number; // ✅ Ensure this exists in your Supabase
+  songID: number;
 }
 
 const SongListPage: React.FC = () => {
-  const [selectedFilter, setSelectedFilter] = useState("suggested");
+  // --- CHANGE 1: Added "challenge" as a possible filter value ---
+  const [selectedFilter, setSelectedFilter] = useState<"suggested" | "all" | "challenge">("suggested");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
   const [allSongs, setAllSongs] = useState<Song[]>([]);
-  const [genres, setGenres] = useState<string[]>([]);
+  const [genres, setGenres] = useState<string[]>([]); 
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate(); // ✅
+  const navigate = useNavigate(); 
 
   const userLowestPitch = parseFloat(localStorage.getItem("lowFreq") || "0");
   const userHighestPitch = parseFloat(localStorage.getItem("highFreq") || "0");
+
+  // --- CHANGE 2: Define the extended range for "Challenge Yourself" ---
+  const pitchExtension = 0.1; // 10% extension
+  const extendedLowestPitch = userLowestPitch * (1 - pitchExtension); // 10% lower
+  const extendedHighestPitch = userHighestPitch * (1 + pitchExtension); // 10% higher
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -78,11 +83,21 @@ const SongListPage: React.FC = () => {
       song.lowestPitch >= userLowestPitch &&
       song.highestPitch <= userHighestPitch;
 
+    // --- CHANGE 3: Added logic for "challenge" filter ---
+    const withinExtendedRange =
+      userLowestPitch > 0 &&
+      userHighestPitch > 0 &&
+      song.lowestPitch >= extendedLowestPitch &&
+      song.highestPitch <= extendedHighestPitch;
+
+    // --- CHANGE 4: Updated filter logic to include "challenge" ---
     if (selectedFilter === "suggested") {
       return withinUserRange && matchesSearch && matchesGenre;
+    } else if (selectedFilter === "challenge") {
+      return withinExtendedRange && matchesSearch && matchesGenre;
     }
 
-    return matchesSearch && matchesGenre;
+    return matchesSearch && matchesGenre; // Default "all" filter
   });
 
   return (
@@ -94,6 +109,7 @@ const SongListPage: React.FC = () => {
           <span className="logo-text">mic-drop</span>
         </div>
 
+        {/* --- CHANGE 5: Pass updated filter options to SidebarMenu --- */}
         <SidebarMenu
           selectedFilter={selectedFilter}
           setSelectedFilter={setSelectedFilter}
