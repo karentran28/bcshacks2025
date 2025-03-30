@@ -9,44 +9,80 @@ interface Song {
   artist: string;
   year: number;
   genre: string;
-  // duration: duration;
   albumCoverUrl: string;
+  lowestPitch: number;
+  highestPitch: number;
 }
 
 const SongListPage: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState("suggested");
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
   const [allSongs, setAllSongs] = useState<Song[]>([]);
+  const [genres, setGenres] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const userLowestPitch = parseFloat(localStorage.getItem("lowFreq") || "0");
+  const userHighestPitch = parseFloat(localStorage.getItem("highFreq") || "0");
+
+  console.log(userLowestPitch);
+  console.log(userHighestPitch);
 
   useEffect(() => {
     const fetchSongs = async () => {
-      if (selectedFilter === "all") {
-        setLoading(true);
-        const { data, error } = await supabase.from("Songs").select("*");
+      const { data, error } = await supabase.from("Songs").select("*");
 
-        console.log("Supabase Data:", data);
-        console.log("Supabase Error:", error);
+      console.log("Supabase Data:", data);
+      console.log("Supabase Error:", error);
 
-        if (error) {
-          console.error("Error fetching songs:", error);
-        } else {
-          setAllSongs(data || []);
-        }
+      if (error) {
+        console.error("Error fetching songs:", error);
+      } else {
+        const sortedSongs = (data || []).sort((a, b) =>
+          a.title.localeCompare(b.title)
+        );
+        setAllSongs(sortedSongs);
 
-        setLoading(false);
+        const uniqueGenres = Array.from(
+          new Set(
+            data
+              ?.map((song) => song.genre?.trim().toLowerCase())
+              .filter(Boolean)
+          )
+        )
+          .sort((a, b) => a.localeCompare(b))
+          .map((genre) => genre.charAt(0).toUpperCase() + genre.slice(1));
+
+        setGenres(uniqueGenres);
       }
+
+      setLoading(false);
     };
 
     fetchSongs();
-  }, [selectedFilter]);
+  }, []);
 
-  const filteredSongs =
-    selectedFilter === "suggested"
-      ? allSongs.filter((song) => song.year > 2015)
-      : allSongs.filter((song) =>
-          song.title.toLowerCase().includes(searchQuery.toLowerCase())
-        );
+  const filteredSongs = allSongs.filter((song) => {
+    const matchesSearch = song.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+
+    const matchesGenre = selectedGenre
+      ? song.genre.toLowerCase() === selectedGenre.toLowerCase()
+      : true;
+
+    const withinUserRange =
+      userLowestPitch > 0 &&
+      userHighestPitch > 0 &&
+      song.lowestPitch >= userLowestPitch &&
+      song.highestPitch <= userHighestPitch;
+
+    if (selectedFilter === "suggested") {
+      return withinUserRange && matchesSearch && matchesGenre;
+    }
+
+    return matchesSearch && matchesGenre;
+  });
 
   return (
     <div className="song-list-page">
@@ -55,6 +91,9 @@ const SongListPage: React.FC = () => {
         setSelectedFilter={setSelectedFilter}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+        genres={genres}
+        selectedGenre={selectedGenre}
+        setSelectedGenre={setSelectedGenre}
       />
 
       <div className="divider" />
@@ -66,7 +105,6 @@ const SongListPage: React.FC = () => {
           <p>No songs found.</p>
         ) : (
           <>
-            {/* Aligned label row */}
             <div className="song-card-label">
               <div className="label-spacer" />
               <div className="label-meta">
@@ -82,7 +120,6 @@ const SongListPage: React.FC = () => {
                 key={index}
                 title={song.title}
                 artist={song.artist}
-                // duration={song.duration}
                 albumCoverUrl={song.albumCoverUrl?.trim() || ""}
                 genre={song.genre}
                 year={song.year}

@@ -7,8 +7,7 @@
   border-radius: 8px;
   margin-bottom: 0;
   background-color: var(--background-color);
-  border-bottom: 0.25px solid #2a2d30; /* 👈 Thin grey line */
-
+  border-bottom: 0.25px solid #2a2d30; 
 
 }
 
@@ -53,16 +52,28 @@
   color: white;
   margin: 0;
   white-space: nowrap;
+  /* background-color: pink; */
 }
 
 .song-artist,
-.song-year,
 .song-genre {
+  flex: 0.7;
   margin: 0;
   font-weight: normal;
   font-family: var(--font);
   color: lightgrey;
   white-space: nowrap;
+  /* background-color: antiquewhite; */
+}
+
+.song-year {
+  flex: 0.4;
+  margin: 0;
+  font-weight: normal;
+  font-family: var(--font);
+  color: lightgrey;
+  white-space: nowrap;
+  /* background-color: green; */
 }
 
 .sing-button {
@@ -99,5 +110,11 @@
 .song-card.clickable:hover .song-artist,
 .song-card.clickable:hover .song-year,
 .song-card.clickable:hover .song-genre {
-  color: var(--header-color); 
+  background: linear-gradient(to right, var(--header-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; 
+  text-fill-color: transparent; 
+
+  
 }
