@@ -39,20 +39,29 @@ const LowPage: React.FC = () => {
 
   return (
     <div className="landing-wrapper">
+      {isRecording && (<div className="recording-overlay" /> )}
       <h1 className="title-text">
-        Let out your deepest ‘ooo’ – like a bear growl
+      Let out your deepest ‘ooo’ – hold it for 5 seconds.
       </h1>
+      <h3>Keep it going as the glow moves</h3>
+      
       <div className="content-wrapper">
-        <button
-          className={`button ${isRecording ? 'recording-glow' : ''}`}
-          onClick={handleMicClick}
-        >
-          <img
-            src={isRecording ? recordingIcon : micIcon}
-            alt="Mic"
-            className="button-mic"
-          />
-        </button>
+       <button
+  className={`button ${isRecording ? 'recording-glow' : ''}`}
+  onClick={handleMicClick}
+>
+  <img
+    src={micIcon}
+    alt="Mic"
+    className={`button-mic ${isRecording ? 'fade-out' : 'fade-in'}`}
+  />
+  <img
+    src={recordingIcon}
+    alt="Recording"
+    className={`button-mic absolute ${isRecording ? 'fade-in' : 'fade-out'}`}
+  />
+</button>
+
         <EqualizerBars />
       </div>
 
