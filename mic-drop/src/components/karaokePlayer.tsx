@@ -7,10 +7,9 @@ interface Props {
   audioSrc: string
   lrcSrc: string
   albumArt: string
-  onBack: () => void
 }
 
-const KaraokePlayer: React.FC<Props> = ({ songTitle, audioSrc, lrcSrc, albumArt, onBack }) => {
+const KaraokePlayer: React.FC<Props> = ({ songTitle, audioSrc, lrcSrc, albumArt}) => {
   const [lines, setLines] = useState<LrcLine[]>([])
   const [currentLine, setCurrentLine] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -91,18 +90,17 @@ const KaraokePlayer: React.FC<Props> = ({ songTitle, audioSrc, lrcSrc, albumArt,
   
   return (
     <div className="karaoke-wrapper">
-      <div className="background-image" style={{ backgroundImage: `url(${albumArt})` }} />
-
       <audio ref={audioRef} src={audioSrc} preload="auto" />
 
-      <button onClick={onBack} className="back-button">← Back</button>
-
-      <h2 className="song-title">{songTitle}</h2>
+      <div className="karaoke-header">
+        <h1 className="song-title">{songTitle}</h1>
+        <img src={albumArt} alt="Album Art" className="album-art" />
+      </div>
 
       <div className="lyrics-container">
         {lines.map((line, i) => {
           const distance = Math.abs(i - currentLine)
-          if (distance > 2) return null // Only show 5 lines total (2 before & after)
+          if (distance > 3) return null
 
           let className = 'lyric-line'
           if (i === currentLine) className += ' active'
@@ -122,19 +120,20 @@ const KaraokePlayer: React.FC<Props> = ({ songTitle, audioSrc, lrcSrc, albumArt,
         })}
       </div>
 
-      <input
-        type="range"
-        min={0}
-        max={100}
-        value={progress}
-        onChange={handleSeek}
-        className="progress-bar"
-      />
+      <div className="controls-container">
+        <input
+          type="range"
+          min={0}
+          max={100}
+          value={progress}
+          onChange={handleSeek}
+          className="progress-bar"
+        />
 
-      <button onClick={togglePlay} className="play-button">
-        {isPlaying ? '⏸' : '▶️'}
-      </button>
-
+        <button onClick={togglePlay} className="play-button">
+          {isPlaying ? '⏸' : '▶'}
+        </button>
+      </div>
     </div>
   )
 }
