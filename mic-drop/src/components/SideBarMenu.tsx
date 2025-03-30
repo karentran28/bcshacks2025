@@ -1,11 +1,14 @@
 import React from "react";
-import "./SidebarMenu.css"; // Optional: create this for styles
+import "./SidebarMenu.css";
 
 interface SidebarMenuProps {
   selectedFilter: string;
-  setSelectedFilter: (val: string) => void;
+  setSelectedFilter: (value: string) => void;
   searchQuery: string;
-  setSearchQuery: (val: string) => void;
+  setSearchQuery: (value: string) => void;
+  genres: string[];
+  selectedGenre: string | null;
+  setSelectedGenre: (value: string | null) => void;
 }
 
 const SidebarMenu: React.FC<SidebarMenuProps> = ({
@@ -13,6 +16,9 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
   setSelectedFilter,
   searchQuery,
   setSearchQuery,
+  genres,
+  selectedGenre,
+  setSelectedGenre,
 }) => (
   <aside className="sidebar">
     <input
@@ -22,20 +28,51 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
       value={searchQuery}
       onChange={(e) => setSearchQuery(e.target.value)}
     />
+
     <ul className="menu">
       <li
         className={selectedFilter === "suggested" ? "active" : ""}
-        onClick={() => setSelectedFilter("suggested")}
+        onClick={() => {
+          setSelectedFilter("suggested");
+          setSelectedGenre(null);
+        }}
       >
         Suggested Songs
       </li>
       <li
-        className={selectedFilter === "all" ? "active" : ""}
-        onClick={() => setSelectedFilter("all")}
+        className={selectedFilter === "all" && !selectedGenre ? "active" : ""}
+        onClick={() => {
+          setSelectedFilter("all");
+          setSelectedGenre(null);
+        }}
       >
         All Songs
       </li>
     </ul>
+
+    {genres.length > 0 && (
+      <>
+        <h4 className="menu-section-title">Genres</h4>
+        <ul className="menu">
+          {genres.map((genre) => (
+            <li
+              key={genre}
+              className={
+                selectedFilter === "all" && selectedGenre === genre
+                  ? "active"
+                  : ""
+              }
+              onClick={() => {
+                setSelectedFilter("all");
+                setSelectedGenre(genre);
+              }}
+            >
+              {genre}
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
   </aside>
 );
 

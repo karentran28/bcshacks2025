@@ -1,13 +1,16 @@
 
   
   .title-text {
-    font-size: 6rem;
+    font-size: clamp(2.5rem, 6vw, 5rem); /* ⬅️ this replaces fixed 6rem */
     font-weight: 700;
     background: linear-gradient(45deg, #e7166b, #821ced);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 0.25rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    word-break: break-word;
   }
+  
   
   .slogan-text {
     color: var(--text-color);
@@ -16,18 +19,23 @@
   }
 
   .button {
-    width: 128px;
-    height: 64px;
+    position: relative;
+    width: clamp(120px, 12vw, 160px);  /* scales with screen */
+    height: clamp(60px, 6vw, 80px);
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--accent-color);
-    border-radius: 8px;
+    border-radius: 12px;
     border: 1px solid var(--accent-color);
     cursor: pointer;
-    transition: box-shadow 0.25s, border-color 0.25s;
+    transition: all 0.3s ease-in-out;
+    z-index: 1;
+    overflow: visible;
   }
+  
+  
   
   .button:hover {
     border-color: var(--header-color);
@@ -36,20 +44,51 @@
   }
   
   .button-mic {
-    width: 28px;
-    height: 28px;
+    width: 50%;
+    height: 50%;
+    max-width: 36px;
+    max-height: 36px;
+    object-fit: contain;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+  
+  .button-mic.absolute {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    max-width: 36px;
+    max-height: 36px;
     object-fit: contain;
   }
   
+  
+  
   .content-wrapper {
+    overflow: visible;
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
 
-.recording-glow {
+  .fade-in {
+    opacity: 1;
+  }
+  
+  .fade-out {
+    opacity: 0;
+    transform: scale(0.95); /* subtle shrink */
+  }
+
     .recording-glow {
+        
+        transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    
+          
         position: relative;
         border: none;
         animation: pulse-glow 1.5s ease-in-out infinite;
@@ -59,17 +98,29 @@
       .recording-glow::before {
         content: '';
         position: absolute;
-        inset: -3px;
+        inset: -15px; /* make it go well beyond the button */
         z-index: -1;
-        border-radius: inherit;
+        border-radius: 999px; /* fully rounded for mic button */
         background: linear-gradient(45deg, #e7166b, #821ced, #e7166b);
-        background-size: 200% 200%;
-        animation: gradient-flow 3s linear infinite;
-        filter: blur(8px);
-        opacity: 0.8;
+        background-size: 400% 400%;
+        animation: gradient-flow 4s linear infinite;
+        filter: blur(30px); /* stronger blur makes it soft */
+        opacity: 0.6;
+        pointer-events: none;
       }
-    }      
-
+      
+      
+ 
+      .landing-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 4rem; /* push content down from top */
+        min-height: 100vh;
+        overflow-y: auto; 
+        box-sizing: border-box;
+      }
+      
   
     @keyframes pulse-glow {
         0%, 100% {
@@ -91,6 +142,97 @@
         }
         100% {
           background-position: 0% 50%;
+        }
+      }
+      
+      .recording-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+        background: transparent;
+        overflow: hidden;
+      }
+      
+      .recording-overlay::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(90deg, #e7166b, #f79e1b, #821ced, #e7166b);
+        background-size: 400% 100%;
+        animation: move-glow 5s linear forwards, fade-out-overlay 1s ease-out 5s forwards;
+        filter: blur(50px);
+        opacity: 0.8;
+      }
+        
+      @keyframes move-glow {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(0%);
+        }
+      }
+      
+      @keyframes fade-out-overlay {
+        to {
+          opacity: 0;
+        }
+      }
+      
+      .note-display-wrapper {
+        margin-top: 2rem;
+        text-align: center;
+        animation: fadeIn 0.8s ease;
+      }
+      
+      .note-label {
+        font-size: 1.5rem;
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+      }
+      
+      .note-value {
+        font-size: 4rem;
+        font-weight: 700;
+        color: white;
+        background: linear-gradient(45deg, #e7166b, #821ced);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: pulse-glow 2s ease-in-out infinite;
+      }
+      
+      .next-button {
+        margin-top: 1.5rem;
+        padding: 0.75rem 2rem;
+        font-size: 1.2rem;
+        font-weight: 500;
+        background-color: var(--accent-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .next-button:hover {
+        background-color: var(--header-color);
+        transform: scale(1.05);
+      }
+      
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
       }
       

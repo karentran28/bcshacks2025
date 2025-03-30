@@ -5,7 +5,7 @@
     color: var(--text-color);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     margin: 40px;
     box-sizing: border-box;
   }
@@ -17,7 +17,7 @@
     font-size: 25px;
     color: white;
     border-radius: 500px;
-    border: 1px solid var(--accent-color);
+    border: 1px solid var(--header-color);
     background-color: var(--background-color-);
     margin-bottom: 24px;
   }
@@ -35,11 +35,24 @@
     padding: 12px 0;
     font-weight: 500;
     transition: color 0.2s;
-    font-size: 25px;
+    font-size: 30px;
   }
+
+  
   
   .menu li.active {
-    font-size: 25px;
-    color: var(--header-color);
+    font-size: 30px;
+    background: linear-gradient(to right, var(--header-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text; 
   }
   
+  
+  .menu-section-title {
+  font-size: 30px;
+  font-weight: normal;
+  color: grey;
+  margin: 24px 0 8px;
+  text-align: left;
+}
