@@ -22,8 +22,11 @@ const SongListPage: React.FC = () => {
   const [genres, setGenres] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const userLowestPitch = parseFloat(localStorage.getItem("lowNote") || "0");
-  const userHighestPitch = parseFloat(localStorage.getItem("highNote") || "0");
+  const userLowestPitch = localStorage.getItem("lowFreq");
+  const userHighestPitch = localStorage.getItem("highFreq");
+
+  console.log(userLowestPitch);
+  console.log(userHighestPitch);
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -35,7 +38,6 @@ const SongListPage: React.FC = () => {
       if (error) {
         console.error("Error fetching songs:", error);
       } else {
-
         const sortedSongs = (data || []).sort((a, b) =>
           a.title.localeCompare(b.title)
         );
