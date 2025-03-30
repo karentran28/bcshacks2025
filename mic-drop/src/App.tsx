@@ -1,13 +1,15 @@
 // import { useState } from 'react'
-import './App.css'
-import LandingPage from './pages/LandingPage.tsx'
+import "./App.css";
+
+import LandingPage from "./pages/LandingPage.tsx";
+import SongListPage from "./pages/SongListPage.tsx";
 
 function App() {
   return (
     <>
-      <LandingPage /> 
+      <SongListPage />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
