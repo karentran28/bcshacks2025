@@ -3,8 +3,6 @@ import LandingPage from './pages/LandingPage.tsx'
 import LowPage from './pages/LowPage.tsx'
 
 function App() {
-  const [viewingLyrics, setViewingLyrics] = useState(true)
-
   return (
     <Router>
       <Routes>
