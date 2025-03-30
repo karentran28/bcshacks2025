@@ -12,7 +12,7 @@ const HighPage: React.FC<{ setIsRecording: (v: boolean) => void }> = ({ setIsRec
   const [note, setNote] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  
+
   const handleMicClick = async () => {
     if (isRecordingLocal) return;
   
@@ -78,7 +78,7 @@ const HighPage: React.FC<{ setIsRecording: (v: boolean) => void }> = ({ setIsRec
           <div className="note-value">{note}</div>
 
           <button className="next-button" onClick={() => navigate('/list')}>
-            Next: Find Your High Note →
+            Lets Sing!! →
           </button>
         </div>
       )}
