@@ -3,13 +3,16 @@ import React, { useState } from 'react';
 import EqualizerBars from '../components/EqualizerBars';
 import micIcon from '../assets/icons/microphone.png';
 import recordingIcon from '../assets/icons/recording.png';
+import { useNavigate } from 'react-router-dom';
+
 
 const HighPage: React.FC<{ setIsRecording: (v: boolean) => void }> = ({ setIsRecording }) => {
 
   const [isRecordingLocal, setIsRecordingLocal] = useState(false);
   const [note, setNote] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-
+  const navigate = useNavigate();
+  
   const handleMicClick = async () => {
     if (isRecordingLocal) return;
   
@@ -70,8 +73,13 @@ const HighPage: React.FC<{ setIsRecording: (v: boolean) => void }> = ({ setIsRec
       </div>
 
       {note && (
-        <div className="note-result">
-          Detected Note: <strong>{note}</strong>
+        <div className="note-display-wrapper">
+          <h2 className="note-label">Your highest note is:</h2>
+          <div className="note-value">{note}</div>
+
+          <button className="next-button" onClick={() => navigate('/list')}>
+            Next: Find Your High Note →
+          </button>
         </div>
       )}
 
