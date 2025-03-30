@@ -4,11 +4,10 @@
   align-items: center;
   background-color: #1E1E1E;
   color: white;
-  min-height: 100vh;
   padding: 2rem;
   position: relative;
   box-sizing: border-box;
-  margin-top: 0; /* Remove any unintended spacing */
+  margin-top: 0;
   padding-top: 0;
 }
 
@@ -25,16 +24,17 @@
   z-index: 10;
 }
 
-.fireflies-container {
+.firefly-container {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
   overflow: hidden;
   z-index: 0;
 }
+
 
 .firefly {
   position: absolute;

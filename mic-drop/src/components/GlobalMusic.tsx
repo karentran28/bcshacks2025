@@ -54,7 +54,7 @@ const GlobalMusic: React.FC<Props> = ({ isRecording }) => {
 
   // 🔊 Trigger fade on isRecording toggle
   useEffect(() => {
-    fadeToVolume(isRecording ? 0.1 : 0.4);
+    fadeToVolume(isRecording ? 0 : 0.4);
   }, [isRecording]);
 
   return <audio ref={audioRef} src="/rooftop-live.mp3" />;

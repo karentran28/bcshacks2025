@@ -2,8 +2,9 @@ import './KaraokePage.css'
 import { useNavigate } from "react-router-dom";
 import KaraokePlayer from '../components/karaokePlayer';
 
-const KaraokePage: React.FC = () => {
+const KaraokePage: React.FC<{ setIsRecording: (v: boolean) => void }> = ({ setIsRecording }) => {
   const navigate = useNavigate()
+  setIsRecording(true);
 
   return (
     <div className="karaoke-page">
@@ -32,11 +33,11 @@ const KaraokePage: React.FC = () => {
       })}
       </div>
 
-      <button className="back-button" onClick={() => navigate('/songList')}>← Back to Song List</button>
+      <button className="back-button" onClick={() => navigate('/list')}>← Back to Song List</button>
       <KaraokePlayer
         songTitle="That's What I Like - Bruno Mars"
-        audioSrc="/assets/karaoke-assets/4/dont-stop-believin.mp3"
-        lrcSrc="/assets/karaoke-assets/4/dont-stop-believin.lrc"
+        audioSrc="/assets/karaoke-assets/7/fireflies.mp3"
+        lrcSrc="/assets/karaoke-assets/7/fireflies.lrc"
         albumArt="/assets/karaoke-assets/2/sorry.png"
       />
     </div>
