@@ -2,7 +2,7 @@ import './LowPage.css';
 import React, { useState } from 'react';
 import EqualizerBars from '../components/EqualizerBars';
 import micIcon from '../assets/icons/microphone.png';
-import recordingIcon from '../assets/icons/recording.png'; // <- Add this PNG
+import recordingIcon from '../assets/icons/recording.png'; 
 
 const LowPage: React.FC = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -22,9 +22,10 @@ const LowPage: React.FC = () => {
       });
 
       const data = await response.json();
-//TODO: add logic to stop button
       if (data.note) {
         setNote(data.note);
+        localStorage.setItem("lowNote", data.note);
+        localStorage.setItem("lowFreq", data.frequency.toString());
       } else {
         setError(data.error || 'Pitch could not be detected.');
       }
@@ -39,20 +40,29 @@ const LowPage: React.FC = () => {
 
   return (
     <div className="landing-wrapper">
+      {isRecording && (<div className="recording-overlay" /> )}
       <h1 className="title-text">
-        Let out your deepest ‘ooo’ – like a bear growl
+      Let out your deepest ‘ooo’ – hold it for 5 seconds.
       </h1>
+      <h3>Keep it going as the glow moves</h3>
+      
       <div className="content-wrapper">
-        <button
-          className={`button ${isRecording ? 'recording-glow' : ''}`}
-          onClick={handleMicClick}
-        >
-          <img
-            src={isRecording ? recordingIcon : micIcon}
-            alt="Mic"
-            className="button-mic"
-          />
-        </button>
+       <button
+  className={`button ${isRecording ? 'recording-glow' : ''}`}
+  onClick={handleMicClick}
+>
+  <img
+    src={micIcon}
+    alt="Mic"
+    className={`button-mic ${isRecording ? 'fade-out' : 'fade-in'}`}
+  />
+  <img
+    src={recordingIcon}
+    alt="Recording"
+    className={`button-mic absolute ${isRecording ? 'fade-in' : 'fade-out'}`}
+  />
+</button>
+
         <EqualizerBars />
       </div>
 

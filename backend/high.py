@@ -3,6 +3,7 @@ import librosa
 import numpy as np
 from collections import Counter
 import noisereduce as nr
+import json
 
 DURATION = 5
 SAMPLE_RATE = 44100
@@ -28,8 +29,12 @@ if len(valid_pitches) == 0:
 # Round to nearest note
 rounded_notes = [librosa.hz_to_note(freq) for freq in valid_pitches]
 most_common_note = Counter(rounded_notes).most_common(1)[0][0]
-
+freq_common_note = round(librosa.note_to_hz(most_common_note), 2)
+print(f"Detected frequency: {freq_common_note}")
 print(f"Detected highest note: {most_common_note}")
 
-with open("high_note_pitch.txt", "w") as f:
-    f.write(most_common_note)
+with open("low_note_pitch.json", "w") as f:
+    json.dump({
+        "note": most_common_note,
+        "frequency": freq_common_note
+    }, f)

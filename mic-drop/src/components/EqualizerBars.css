@@ -1,14 +1,18 @@
 .equalizer-container {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 4px;
-    height: 100px;
-    margin-top: 16px;
-  }
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  height: 100px;
+  width: 100%;
+  max-width: 90vw; /* ⬅️ ensure bars stay inside screen */
+  overflow: hidden;
+}
+
   
   .equalizer-bar {
-    width: 4px;
+    width: 30px;
     background-color: var(--header-color);
     border-radius: 2px;
     transition: height 0.1s ease;
