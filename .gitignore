@@ -1,5 +1,6 @@
 backend/venv/
 backend/env/
+env/
 *storybook.log
 node_modules
 backend/low_note_pitch.json

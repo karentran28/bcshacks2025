@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // ✅ Add this
 import SongCard from "../components/SongCard";
 import SidebarMenu from "../components/SideBarMenu";
 import { supabase } from "../supabaseClient";
@@ -12,6 +13,9 @@ interface Song {
   albumCoverUrl: string;
   lowestPitch: number;
   highestPitch: number;
+  LRC: string;
+  instrumental: string;
+  songID: number; // ✅ Ensure this exists in your Supabase
 }
 
 const SongListPage: React.FC = () => {
@@ -21,19 +25,14 @@ const SongListPage: React.FC = () => {
   const [allSongs, setAllSongs] = useState<Song[]>([]);
   const [genres, setGenres] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); // ✅
 
   const userLowestPitch = parseFloat(localStorage.getItem("lowFreq") || "0");
   const userHighestPitch = parseFloat(localStorage.getItem("highFreq") || "0");
 
-  console.log(userLowestPitch);
-  console.log(userHighestPitch);
-
   useEffect(() => {
     const fetchSongs = async () => {
       const { data, error } = await supabase.from("Songs").select("*");
-
-      console.log("Supabase Data:", data);
-      console.log("Supabase Error:", error);
 
       if (error) {
         console.error("Error fetching songs:", error);
@@ -123,7 +122,16 @@ const SongListPage: React.FC = () => {
                 albumCoverUrl={song.albumCoverUrl?.trim() || ""}
                 genre={song.genre}
                 year={song.year}
-                onClick={() => alert(`Selected: ${song.title}`)}
+                onClick={() =>
+                  navigate("/karaoke", {
+                    state: {
+                      songTitle: song.title,
+                      audioSrc: song.instrumental,
+                      lrcSrc: song.LRC,
+                      albumArt: song.albumCoverUrl?.trim() || "",
+                    },
+                  })
+                }
               />
             ))}
           </>
