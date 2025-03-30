@@ -3,26 +3,30 @@ import React, { useState } from 'react';
 import EqualizerBars from '../components/EqualizerBars';
 import micIcon from '../assets/icons/microphone.png';
 import recordingIcon from '../assets/icons/recording.png';
+import { useNavigate } from 'react-router-dom';
 
-const HighPage: React.FC = () => {
-  const [isRecording, setIsRecording] = useState(false);
+
+const HighPage: React.FC<{ setIsRecording: (v: boolean) => void }> = ({ setIsRecording }) => {
+
+  const [isRecordingLocal, setIsRecordingLocal] = useState(false);
   const [note, setNote] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-
+  const navigate = useNavigate();
+  
   const handleMicClick = async () => {
-    if (isRecording) return;
-
-    setIsRecording(true);
+    if (isRecordingLocal) return;
+  
+    setIsRecordingLocal(true);
+    setIsRecording(true); // global music volume ducking
     setError(null);
     setNote(null);
-
+  
     try {
       const response = await fetch("http://localhost:5050/run-high", {
         method: "POST",
       });
-
+  
       const data = await response.json();
-
       if (data.note) {
         setNote(data.note);
         localStorage.setItem("lowNote", data.note);
@@ -34,13 +38,15 @@ const HighPage: React.FC = () => {
       setError('Failed to connect to the backend.');
       console.error(err);
     } finally {
-      setIsRecording(false);
+      setIsRecordingLocal(false);
+      setIsRecording(false); // restore global music
     }
   };
+  
 
   return (
     <div className="landing-wrapper">
-      {isRecording && <div className="recording-overlay" />}
+      {isRecordingLocal && <div className="recording-overlay" />}
       <h1 className="title-text">
         Let out your highest ‘eee’ – hold it for 5 seconds.
       </h1>
@@ -48,18 +54,18 @@ const HighPage: React.FC = () => {
 
       <div className="content-wrapper">
         <button
-          className={`button ${isRecording ? 'recording-glow' : ''}`}
+          className={`button ${isRecordingLocal ? 'recording-glow' : ''}`}
           onClick={handleMicClick}
         >
           <img
             src={micIcon}
             alt="Mic"
-            className={`button-mic ${isRecording ? 'fade-out' : 'fade-in'}`}
+            className={`button-mic ${isRecordingLocal ? 'fade-out' : 'fade-in'}`}
           />
           <img
             src={recordingIcon}
             alt="Recording"
-            className={`button-mic absolute ${isRecording ? 'fade-in' : 'fade-out'}`}
+            className={`button-mic absolute ${isRecordingLocal ? 'fade-in' : 'fade-out'}`}
           />
         </button>
 
@@ -67,8 +73,13 @@ const HighPage: React.FC = () => {
       </div>
 
       {note && (
-        <div className="note-result">
-          Detected Note: <strong>{note}</strong>
+        <div className="note-display-wrapper">
+          <h2 className="note-label">Your highest note is:</h2>
+          <div className="note-value">{note}</div>
+
+          <button className="next-button" onClick={() => navigate('/list')}>
+            Next: Find Your High Note →
+          </button>
         </div>
       )}
 
