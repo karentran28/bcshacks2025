@@ -1,14 +1,17 @@
 import './LandingPage.css';
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage: React.FC = () => {
+  const navigate = useNavigate();
+
   const handleGetStarted = () => {
-    console.log("get started clicked!");
+    navigate("/low");
   }
 
-
   return (
-    <div className="title-section">
+    <div className="landing-wrapper">
+      <div className="background-glow"></div>
       <h1 className="title-text">
         Welcome to MicDrop
       </h1>
