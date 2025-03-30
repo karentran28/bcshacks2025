@@ -35,5 +35,8 @@
     "prop-types": "^15.8.1",
     "storybook": "^8.6.11",
     "vitest": "^3.0.9"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.4"
   }
 }
