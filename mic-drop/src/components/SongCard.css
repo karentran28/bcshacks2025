@@ -99,5 +99,11 @@
 .song-card.clickable:hover .song-artist,
 .song-card.clickable:hover .song-year,
 .song-card.clickable:hover .song-genre {
-  color: var(--header-color); 
+  background: linear-gradient(to right, var(--header-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; /* For Firefox */
+  text-fill-color: transparent; /* fallback */
+
+  
 }

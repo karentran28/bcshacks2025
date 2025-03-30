@@ -9,44 +9,55 @@ interface Song {
   artist: string;
   year: number;
   genre: string;
-  // duration: duration;
   albumCoverUrl: string;
 }
 
 const SongListPage: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState("suggested");
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
   const [allSongs, setAllSongs] = useState<Song[]>([]);
+  const [genres, setGenres] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchSongs = async () => {
-      if (selectedFilter === "all") {
-        setLoading(true);
-        const { data, error } = await supabase.from("Songs").select("*");
+      const { data, error } = await supabase.from("Songs").select("*");
 
-        console.log("Supabase Data:", data);
-        console.log("Supabase Error:", error);
+      console.log("Supabase Data:", data);
+      console.log("Supabase Error:", error);
 
-        if (error) {
-          console.error("Error fetching songs:", error);
-        } else {
-          setAllSongs(data || []);
-        }
+      if (error) {
+        console.error("Error fetching songs:", error);
+      } else {
+        setAllSongs(data || []);
 
-        setLoading(false);
+        // ✅ Get unique genres
+        const uniqueGenres = Array.from(
+          new Set(data?.map((song) => song.genre).filter(Boolean))
+        );
+        setGenres(uniqueGenres);
       }
+
+      setLoading(false);
     };
 
     fetchSongs();
-  }, [selectedFilter]);
+  }, []);
 
-  const filteredSongs =
-    selectedFilter === "suggested"
-      ? allSongs.filter((song) => song.year > 2015)
-      : allSongs.filter((song) =>
-          song.title.toLowerCase().includes(searchQuery.toLowerCase())
-        );
+  const filteredSongs = allSongs.filter((song) => {
+    const matchesSearch = song.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+
+    const matchesGenre = selectedGenre ? song.genre === selectedGenre : true;
+
+    if (selectedFilter === "suggested") {
+      return song.year > 2015 && matchesSearch && matchesGenre;
+    }
+
+    return matchesSearch && matchesGenre;
+  });
 
   return (
     <div className="song-list-page">
@@ -55,6 +66,9 @@ const SongListPage: React.FC = () => {
         setSelectedFilter={setSelectedFilter}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+        genres={genres}
+        selectedGenre={selectedGenre}
+        setSelectedGenre={setSelectedGenre}
       />
 
       <div className="divider" />
@@ -66,14 +80,13 @@ const SongListPage: React.FC = () => {
           <p>No songs found.</p>
         ) : (
           <>
-            {/* Aligned label row */}
             <div className="song-card-label">
               <div className="label-spacer" />
               <div className="label-meta">
                 <span className="label-title">Title</span>
                 <span className="label-artist">Artist</span>
-                <span className="label-year">Year</span>
                 <span className="label-genre">Genre</span>
+                <span className="label-year">Year</span>
               </div>
             </div>
 
@@ -82,7 +95,6 @@ const SongListPage: React.FC = () => {
                 key={index}
                 title={song.title}
                 artist={song.artist}
-                // duration={song.duration}
                 albumCoverUrl={song.albumCoverUrl?.trim() || ""}
                 genre={song.genre}
                 year={song.year}
