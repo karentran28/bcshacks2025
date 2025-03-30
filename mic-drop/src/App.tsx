@@ -1,9 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LandingPage from './pages/LandingPage.tsx'
 import React, { useState } from 'react'
 import KaraokePlayer from './components/karaokePlayer.tsx'
-import audioFile from './assets/karaoke-assets/1/That\'s What I Like - Bruno Mars.mp3'
-import lrcFile from './assets/karaoke-assets/1/That\'s What I Like - Bruno Mars.lrc'
 
 function App() {
   const [viewingLyrics, setViewingLyrics] = useState(true)
@@ -12,8 +8,10 @@ function App() {
     <div>
       {viewingLyrics ? (
         <KaraokePlayer
-          audioSrc={audioFile}
-          lrcSrc={lrcFile}
+          songTitle="That\'s What I Like - Bruno Mars"
+          audioSrc="/1/That's What I Like - Bruno Mars.mp3"
+          lrcSrc="/1/That's What I Like - Bruno Mars.lrc"
+          albumArt="/1/That's What I Like - Bruno Mars.jpeg"
           onBack={() => setViewingLyrics(false)}
         />
       ) : (
