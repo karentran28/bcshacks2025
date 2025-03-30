@@ -1,18 +1,54 @@
 html, body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow: visible;
+  }
+
+  .landing-content {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 1200px;
+    z-index: 2;
   }
   
-  body {
+  .mic-side {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
     position: relative;
+    overflow: visible;
+    z-index: 2;
+  }  
+
+  .text-side {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding-left: 3rem;
+    padding-right: 2rem;
+    max-width: 100%;
+  }
+  
+  .mic-drop {
+    position: absolute;
+    top: 0px;
+    width: 700px;
+    max-width: none;
+    transform: rotate(180deg);
+    animation: dropMic 3s ease-out forwards;
+    z-index: 5;
+    
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    position: relative;
     min-height: 100vh;
-    text-align: center;
-    padding: 2rem;
     z-index: 1;
   }
   
@@ -54,12 +90,16 @@ html, body {
   }
   
   .title-text {
-    font-size: 6rem;
+    width: 100%;
+    display: block;
+    font-size: clamp(3rem, 6vw, 6rem); /* responsive */
     font-weight: 700;
-    background: linear-gradient(45deg, #e7166b, #821ced);
+    background: linear-gradient(45deg, var(--header-color), var(--accent-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 0.25rem;
+    margin-bottom: 1rem;
+    text-align: left;
+    word-break: break-word;
   }
   
   .slogan-text {
@@ -67,6 +107,7 @@ html, body {
     font-weight: 400;
     font-size: 1.5rem;
     margin-bottom: 2rem;
+    text-align: left;
   }
   
  @keyframes floatGlow1 {
@@ -79,6 +120,22 @@ html, body {
   0%   { transform: translate(0, 0); opacity: 0.4; }
   50%  { transform: translate(-200px, 200px); opacity: 0.8; }
   100% { transform: translate(0, 0); opacity: 0.4; }
+}
+
+@keyframes dropMic {
+  0% {
+    top: -1200px;
+    opacity: 0;
+    visibility: visible;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: -600px;
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
   
