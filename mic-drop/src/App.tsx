@@ -38,7 +38,7 @@ function App() {
         <Route path="/low" element={<LowPage setIsRecording={setIsRecording} />} />
         <Route path="/high" element={<HighPage setIsRecording={setIsRecording} />} /> {/* <-- this one */}
         <Route path="/list" element={<SongListPage/>} />
-        <Route path="/player" element={<KaraokePage />} />
+        <Route path="/player" element={<KaraokePage setIsRecording={setIsRecording} />} />
 
       </Routes>
     </Router>

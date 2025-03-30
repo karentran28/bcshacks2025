@@ -11,7 +11,7 @@ interface Props {
 
 const KaraokePlayer: React.FC<Props> = ({ songTitle, audioSrc, lrcSrc, albumArt}) => {
   const [lines, setLines] = useState<LrcLine[]>([])
-  const [currentLine, setCurrentLine] = useState(0)
+  const [currentLine, setCurrentLine] = useState(-1)
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
 
@@ -104,7 +104,8 @@ const KaraokePlayer: React.FC<Props> = ({ songTitle, audioSrc, lrcSrc, albumArt}
 
           let className = 'lyric-line'
           if (i === currentLine) className += ' active'
-          else className += ' visible'
+          else if (currentLine !== -1 && Math.abs(i - currentLine) <= 3) className += ' visible'
+
 
           return (
             <div
