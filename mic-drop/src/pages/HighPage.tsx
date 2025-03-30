@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import "./LowPage.css";
+=======
+import "./lowPage.css";
+>>>>>>> e918569224df00dd9fa4faee7eff37cf58676b1f
 import React, { useState } from "react";
 import EqualizerBars from "../components/EqualizerBars";
 import micIcon from "../assets/icons/microphone.png";
@@ -80,8 +84,13 @@ const HighPage: React.FC<{ setIsRecording: (v: boolean) => void }> = ({
           <h2 className="note-label">Your highest note is:</h2>
           <div className="note-value">{note}</div>
 
+<<<<<<< HEAD
           <button className="next-button" onClick={() => navigate("/list")}>
             Next: Find Your High Note →
+=======
+          <button className="next-button" onClick={() => navigate('/list')}>
+            Lets Sing!! →
+>>>>>>> e918569224df00dd9fa4faee7eff37cf58676b1f
           </button>
         </div>
       )}

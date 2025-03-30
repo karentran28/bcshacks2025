@@ -4,3 +4,5 @@ backend/env/
 node_modules
 backend/low_note_pitch.json
 backend/high_note_pitch.json
+package-lock.json
+backend/env/
