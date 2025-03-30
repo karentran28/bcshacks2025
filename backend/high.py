@@ -24,7 +24,7 @@ valid_pitches = valid_pitches[(valid_pitches >= FMIN) & (valid_pitches <= FMAX)]
 
 if len(valid_pitches) == 0:
     print("No valid pitch detected.")
-    with open("low_note_pitch.json", "w") as f:
+    with open("high_note_pitch.json", "w") as f:
         json.dump({"note": None, "error": "No valid pitch detected"}, f)
     exit()
 
