@@ -22,8 +22,8 @@ const SongListPage: React.FC = () => {
   const [genres, setGenres] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const userLowestPitch = localStorage.getItem("lowFreq");
-  const userHighestPitch = localStorage.getItem("highFreq");
+  const userLowestPitch = parseFloat(localStorage.getItem("lowFreq") || "0");
+  const userHighestPitch = parseFloat(localStorage.getItem("highFreq") || "0");
 
   console.log(userLowestPitch);
   console.log(userHighestPitch);
