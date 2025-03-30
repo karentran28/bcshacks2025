@@ -22,9 +22,10 @@ const LowPage: React.FC = () => {
       });
 
       const data = await response.json();
-//TODO: add logic to stop button
       if (data.note) {
         setNote(data.note);
+        localStorage.setItem("lowNote", data.note);
+        localStorage.setItem("lowFreq", data.frequency.toString());
       } else {
         setError(data.error || 'Pitch could not be detected.');
       }
