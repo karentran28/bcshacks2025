@@ -13,14 +13,14 @@ const LandingPage: React.FC = () => {
   return (
 <div className="landing-wrapper">
   <div className="background-glow"></div>
-
-  <div className="landing-content">
-    <div className="mic-side">
-      <img
+  <img
         src={droppingMic}
         alt="Mic Drop"
         className="mic-drop"
       />
+  <div className="landing-content">
+    <div className="mic-side">
+
     </div>
 
     <div className="text-side">

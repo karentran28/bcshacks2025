@@ -1,130 +1,131 @@
 html, body {
-    margin: 0;
-    padding: 0;
-    overflow: visible;
-  }
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  z-index: 1;
+  font-size: 18px;
+  background-color: var(--background-color);
+}
 
-  .landing-content {
-    display: flex;
-    justify-content: space-between;
-    width: 90%;
-    max-width: 1200px;
-    z-index: 2;
-  }
-  
-  .mic-side {
-    flex: 1;
-    display: flex;
-    align-items: flex-start;
-    position: relative;
-    overflow: visible;
-    z-index: 2;
-  }  
+.landing-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  max-width: 1600px; 
+  height: 100%;
+  margin: 0 auto;
+  z-index: 2;
+}
 
-  .text-side {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding-left: 3rem;
-    padding-right: 2rem;
-    max-width: 100%;
-  }
-  
-  .mic-drop {
-    position: absolute;
-    top: 0px;
-    width: 700px;
-    max-width: none;
-    transform: rotate(180deg);
-    animation: dropMic 3s ease-out forwards;
-    z-index: 5;
-    
-  }
-  
-  body {
-    margin: 0;
-    padding: 0;
-    overflow: visible;
-    position: relative;
-    min-height: 100vh;
-    z-index: 1;
-  }
-  
-  .background-glow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
-  }
-  
-  .background-glow::before,
-  .background-glow::after {
-    content: "";
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    filter: blur(200px);
-    opacity: 0.6;
-    z-index: -1;
-    transform: translate(0, 0);
-  }
-  
-  .background-glow::before {
-    top: -100px;
-    left: -100px;
-    background: var(--accent-color);
-    animation: floatGlow1 5s ease-in-out infinite;
-  }
-  
-  .background-glow::after {
-    bottom: -100px;
-    right: -100px;
-    background: var(--header-color);
-    animation: floatGlow2 5s ease-in-out infinite;
-  }
-  
-  .title-text {
-    width: 100%;
-    display: block;
-    font-size: clamp(3rem, 6vw, 6rem); /* responsive */
-    font-weight: 700;
-    background: linear-gradient(45deg, var(--header-color), var(--accent-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 1rem;
-    text-align: left;
-    word-break: break-word;
-  }
-  
-  .slogan-text {
-    color: var(--text-color);
-    font-weight: 400;
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    text-align: left;
-  }
-  
- @keyframes floatGlow1 {
+.mic-side {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  overflow: visible;
+  z-index: 2;
+}
+
+.text-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 5rem; 
+  padding-right: 3rem; 
+  max-width: 100%;
+}
+
+.mic-drop {
+  position: absolute;
+  bottom: auto;
+  left: 7vw; 
+  transform: rotate(180deg);
+  width: 50vw;
+  max-width: 100%;
+  animation: dropMic 3s ease-out forwards;
+  z-index: 5;
+}
+
+
+.background-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.background-glow::before,
+.background-glow::after {
+  content: "";
+  position: absolute;
+  width: 60vw; 
+  height: 60vh; 
+  border-radius: 50%;
+  filter: blur(25vw); 
+  opacity: 0.6;
+  z-index: -1;
+  transform: translate(0, 0);
+}
+
+.background-glow::before {
+  top: -12vw;
+  left: -12vw;
+  background: var(--accent-color);
+  animation: floatGlow1 5s ease-in-out infinite;
+}
+
+.background-glow::after {
+  bottom: -12vw;
+  right: -12vw;
+  background: var(--header-color);
+  animation: floatGlow2 5s ease-in-out infinite;
+}
+
+.title-text {
+  width: 100%;
+  display: block;
+  font-size: clamp(4rem, 8vw, 8rem); 
+  font-weight: 800;
+  background: linear-gradient(45deg, var(--header-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2rem; 
+  text-align: left;
+  word-break: break-word;
+}
+
+.slogan-text {
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 3vw, 2rem); 
+  margin-bottom: 3rem;
+  text-align: left;
+}
+
+@keyframes floatGlow1 {
   0%   { transform: translate(0, 0); opacity: 0.4; }
-  50%  { transform: translate(200px, -200px); opacity: 0.8; }
+  50%  { transform: translate(20vw, -20vw); opacity: 0.8; }
   100% { transform: translate(0, 0); opacity: 0.4; }
 }
 
 @keyframes floatGlow2 {
   0%   { transform: translate(0, 0); opacity: 0.4; }
-  50%  { transform: translate(-200px, 200px); opacity: 0.8; }
+  50%  { transform: translate(-20vw, 20vw); opacity: 0.8; }
   100% { transform: translate(0, 0); opacity: 0.4; }
 }
 
 @keyframes dropMic {
   0% {
-    top: -1200px;
+    top: -120vh;
     opacity: 0;
     visibility: visible;
   }
@@ -132,10 +133,8 @@ html, body {
     opacity: 1;
   }
   100% {
-    top: -600px;
+    top: -80vh;
     opacity: 1;
     visibility: visible;
   }
 }
-
-  
