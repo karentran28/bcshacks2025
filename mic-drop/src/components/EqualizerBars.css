@@ -1,0 +1,16 @@
+.equalizer-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+    height: 100px;
+    margin-top: 16px;
+  }
+  
+  .equalizer-bar {
+    width: 4px;
+    background-color: var(--header-color);
+    border-radius: 2px;
+    transition: height 0.1s ease;
+  }
+  
