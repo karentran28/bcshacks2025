@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { parseLRC, LrcLine } from "./parseLRC";
 import "./KaraokePlayer.css";
+import MicPlayback from "./AudioPlayback";
 
 interface Props {
   songTitle: string;
@@ -98,8 +99,8 @@ const KaraokePlayer: React.FC<Props> = ({
       <audio ref={audioRef} src={audioSrc} preload="auto" />
 
       <div className="karaoke-header">
-        <h1 className="song-title">{songTitle}</h1>
         <img src={albumArt} alt="Album Art" className="album-art" />
+        <h1 className="song-title">{songTitle}</h1>
       </div>
 
       <div className="lyrics-container">
@@ -136,9 +137,12 @@ const KaraokePlayer: React.FC<Props> = ({
           className="progress-bar"
         />
 
-        <button onClick={togglePlay} className="play-button">
-          {isPlaying ? "⏸" : "▶"}
-        </button>
+        <div className="media-buttons">
+          <button onClick={togglePlay} className="play-button">
+            {isPlaying ? "⏸" : "▶"}
+          </button>
+          <MicPlayback />
+        </div>
       </div>
     </div>
   );

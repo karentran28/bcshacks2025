@@ -1,5 +1,5 @@
 .sidebar {
-    width: 300px;
+    width: 500px;
     flex-shrink: 0;         /* 👈 very important! */
     background-color: var(--background-color);
     color: var(--text-color);
@@ -12,7 +12,7 @@
   
   
   .search-box {
-    width: 90%;
+    width: 80%;
     padding: 20px;
     font-size: 25px;
     color: white;

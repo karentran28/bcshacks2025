@@ -15,14 +15,15 @@
   position: absolute;
   top: 1rem;
   left: 1rem;
-  background-color: #444;
+  border-color: var(--accent-color);
   color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+  padding: 1rem 2rem;
+  border-radius: 40px;
   border: none;
   cursor: pointer;
   z-index: 10;
 }
+
 
 .firefly-container {
   position: fixed;

@@ -2,7 +2,10 @@ import "./KaraokePage.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import KaraokePlayer from "../components/karaokePlayer";
 
-const KaraokePage: React.FC = () => {
+const KaraokePage: React.FC<{ setIsRecording: (v: boolean) => void }> = ({
+  setIsRecording,
+}) => {
+  setIsRecording(true);
   const navigate = useNavigate();
   const location = useLocation();
 

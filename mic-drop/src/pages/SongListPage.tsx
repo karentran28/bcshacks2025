@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom"; // ✅ Add this
 import SongCard from "../components/SongCard";
 import SidebarMenu from "../components/SideBarMenu";
 import { supabase } from "../supabaseClient";
+import logo from "/assets/logo.webp";
+
 import "./SongListPage.css";
 
 interface Song {
@@ -85,15 +87,29 @@ const SongListPage: React.FC = () => {
 
   return (
     <div className="song-list-page">
-      <SidebarMenu
-        selectedFilter={selectedFilter}
-        setSelectedFilter={setSelectedFilter}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        genres={genres}
-        selectedGenre={selectedGenre}
-        setSelectedGenre={setSelectedGenre}
-      />
+      <div className="background-glow"></div>
+      <aside className="sidebar">
+        <div className="logo-container" onClick={() => navigate("/")}>
+          <img src={logo} alt="MicDrop Logo" className="logo-img" />
+          <span className="logo-text">mic-drop</span>
+        </div>
+
+        <SidebarMenu
+          selectedFilter={selectedFilter}
+          setSelectedFilter={setSelectedFilter}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          genres={genres}
+          selectedGenre={selectedGenre}
+          setSelectedGenre={setSelectedGenre}
+        />
+
+        <div className="redo-button-container">
+          <button className="redo-button" onClick={() => navigate("/low")}>
+            Redo Pitch Test
+          </button>
+        </div>
+      </aside>
 
       <div className="divider" />
 

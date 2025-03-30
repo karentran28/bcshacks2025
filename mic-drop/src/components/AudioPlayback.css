@@ -1,0 +1,33 @@
+.mic-toggle-button {
+    padding: 18px 28px;
+    font-size: 18px;
+    border-radius: 60px;
+    border: none;
+    outline: none;
+    font-family: var(--font);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: white;
+    box-shadow: none;
+  }
+  
+  /* Remove browser focus styles */
+  .mic-toggle-button:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  
+  /* Unmuted = green */
+  .mic-toggle-button.unmuted {
+    background-color: #4caf50;
+  }
+  
+  /* Muted = red */
+  .mic-toggle-button.muted {
+    background-color: #e53935;
+  }
+  
+  .mic-toggle-button:hover {
+    opacity: 0.9;
+  }
+  

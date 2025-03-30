@@ -2,10 +2,40 @@
   display: flex;
   height: 90vh;
   width: 95vw;
-  background-color: var(--background-color);
+  background-color: rgba(0, 0, 0, 0);
   color: var(--text-color);
   font-family: var(--font);
 
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 400px; /* or whatever your sidebar width is */
+  padding: 0px 0px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0px; /* spacing between image and text */
+  cursor: pointer;
+  margin-left: 40px;
+  margin-bottom: 0px;
+}
+
+.logo-img {
+  width: 120px;
+  height: 90px;
+}
+
+.logo-text {
+  font-size: 50px;
+  color: var(--text-color);
+  font-weight: normal;
+  font-family: var(--font);
 }
 
 .divider {
@@ -19,7 +49,7 @@
   flex: 1;
   padding: 24px 0;
   overflow-y: auto;
-  background-color: var(--background-color);
+  background-color: rgba(0, 0, 0, 0);
   display: flex;
   flex-direction: column;
 }
@@ -34,7 +64,7 @@
   font-size: 20px;
   color: var(--header-color);
   border-bottom: 1px solid grey;
-  background-color: var(--background-color);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .label-spacer {
@@ -68,4 +98,66 @@
 }
 .label-year {
   width: 14%;
+}
+
+
+.background-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.background-glow::before,
+.background-glow::after {
+  content: "";
+  position: absolute;
+  width: 60vw; 
+  height: 60vh; 
+  border-radius: 50%;
+  filter: blur(25vw); 
+  opacity: 0.6;
+  z-index: -1;
+  transform: translate(0, 0);
+}
+
+.background-glow::before {
+  top: -12vw;
+  left: -12vw;
+  background: var(--accent-color);
+  animation: floatGlow1 5s ease-in-out infinite;
+}
+
+.background-glow::after {
+  bottom: -12vw;
+  right: -12vw;
+  background: var(--header-color);
+  animation: floatGlow2 5s ease-in-out infinite;
+}
+
+.redo-button-container {
+  margin-top: auto;
+  padding: 30px 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.redo-button {
+  padding: 12px 24px;
+  font-size: 30px;
+  font-family: var(--font);
+  background: linear-gradient(to right, var(--header-color), var(--accent-color));
+  border: none;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.redo-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(to right, var(--accent-color), var(--header-color));
 }
