@@ -26,6 +26,7 @@ import LowPage from './pages/LowPage';
 import GlobalMusic from './components/GlobalMusic';
 import HighPage from './pages/HighPage';
 import SongListPage from './pages/SongListPage.tsx';
+import KaraokePage from './pages/KaraokePage.tsx';
 function App() {
   const [isRecording, setIsRecording] = useState(false);
 
@@ -37,7 +38,7 @@ function App() {
         <Route path="/low" element={<LowPage setIsRecording={setIsRecording} />} />
         <Route path="/high" element={<HighPage setIsRecording={setIsRecording} />} /> {/* <-- this one */}
         <Route path="/list" element={<SongListPage/>} />
-
+        <Route path="/player" element={<KaraokePage />} />
 
       </Routes>
     </Router>
