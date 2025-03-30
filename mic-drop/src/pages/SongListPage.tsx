@@ -10,6 +10,8 @@ interface Song {
   year: number;
   genre: string;
   albumCoverUrl: string;
+  lowestPitch: number;
+  highestPitch: number;
 }
 
 const SongListPage: React.FC = () => {
@@ -19,6 +21,9 @@ const SongListPage: React.FC = () => {
   const [allSongs, setAllSongs] = useState<Song[]>([]);
   const [genres, setGenres] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const userLowestPitch = parseFloat(localStorage.getItem("lowNote") || "0");
+  const userHighestPitch = parseFloat(localStorage.getItem("highNote") || "0");
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -30,12 +35,22 @@ const SongListPage: React.FC = () => {
       if (error) {
         console.error("Error fetching songs:", error);
       } else {
-        setAllSongs(data || []);
 
-        // ✅ Get unique genres
-        const uniqueGenres = Array.from(
-          new Set(data?.map((song) => song.genre).filter(Boolean))
+        const sortedSongs = (data || []).sort((a, b) =>
+          a.title.localeCompare(b.title)
         );
+        setAllSongs(sortedSongs);
+
+        const uniqueGenres = Array.from(
+          new Set(
+            data
+              ?.map((song) => song.genre?.trim().toLowerCase())
+              .filter(Boolean)
+          )
+        )
+          .sort((a, b) => a.localeCompare(b))
+          .map((genre) => genre.charAt(0).toUpperCase() + genre.slice(1));
+
         setGenres(uniqueGenres);
       }
 
@@ -50,10 +65,18 @@ const SongListPage: React.FC = () => {
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
 
-    const matchesGenre = selectedGenre ? song.genre === selectedGenre : true;
+    const matchesGenre = selectedGenre
+      ? song.genre.toLowerCase() === selectedGenre.toLowerCase()
+      : true;
+
+    const withinUserRange =
+      userLowestPitch > 0 &&
+      userHighestPitch > 0 &&
+      song.lowestPitch >= userLowestPitch &&
+      song.highestPitch <= userHighestPitch;
 
     if (selectedFilter === "suggested") {
-      return song.year > 2015 && matchesSearch && matchesGenre;
+      return withinUserRange && matchesSearch && matchesGenre;
     }
 
     return matchesSearch && matchesGenre;
@@ -85,8 +108,8 @@ const SongListPage: React.FC = () => {
               <div className="label-meta">
                 <span className="label-title">Title</span>
                 <span className="label-artist">Artist</span>
-                <span className="label-genre">Genre</span>
                 <span className="label-year">Year</span>
+                <span className="label-genre">Genre</span>
               </div>
             </div>
 
