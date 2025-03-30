@@ -2,7 +2,7 @@ import '../index.css';
 import React from 'react';
 import EqualizerBars from '../components/EqualizerBars'; // Adjust path if needed
 
-const LandingPage: React.FC = () => {
+const LowPage: React.FC = () => {
   return (
     <div className="landing-container">
       <h1 className="title-text">
@@ -16,4 +16,4 @@ const LandingPage: React.FC = () => {
   );
 };
 
-export default LandingPage;
+export default LowPage;
