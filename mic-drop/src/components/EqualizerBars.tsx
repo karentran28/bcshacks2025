@@ -53,7 +53,6 @@ const EqualizerBars: React.FC = () => {
           const endBin = minBin + Math.floor(((i + 1) / BAR_COUNT) * binRange);
           let sum = 0;
           let count = 0;
-          console.log(dataArray.slice(minBin, maxBin + 1));
           for (let j = startBin; j < endBin; j++) {
             sum += dataArray[j];
             count++;
