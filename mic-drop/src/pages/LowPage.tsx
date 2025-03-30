@@ -2,7 +2,7 @@ import './LowPage.css';
 import React, { useState } from 'react';
 import EqualizerBars from '../components/EqualizerBars';
 import micIcon from '../assets/icons/microphone.png';
-import recordingIcon from '../assets/icons/recording.png'; // <- Add this PNG
+import recordingIcon from '../assets/icons/recording.png'; 
 
 const LowPage: React.FC = () => {
   const [isRecording, setIsRecording] = useState(false);
