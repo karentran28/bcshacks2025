@@ -162,3 +162,50 @@
   transform: scale(1.05);
   background: linear-gradient(to right, var(--accent-color), var(--header-color));
 }
+
+.user-menu {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 10;
+}
+
+.user-greeting {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+}
+
+.dropdown-menu {
+  margin-top: 0.5rem;
+  background-color: #1e1e1e;
+  border: 1px solid var(--accent-color);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  min-width: 120px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-item {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1rem;
+  text-align: left;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: var(--accent-color);
+  color: #fff;
+}
+

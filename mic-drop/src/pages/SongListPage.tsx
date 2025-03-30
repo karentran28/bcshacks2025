@@ -27,11 +27,27 @@ const SongListPage: React.FC = () => {
   const [allSongs, setAllSongs] = useState<Song[]>([]);
   const [genres, setGenres] = useState<string[]>([]); 
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate(); // ✅
+  const [user, setUser] = useState<any>(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const userLowestPitch = parseFloat(localStorage.getItem("lowFreq") || "0");
   const userHighestPitch = parseFloat(localStorage.getItem("highFreq") || "0");
+  const getUser = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    setUser(user);
+  };
 
+  const handleLogout = async () => {
+    setUser(null);
+    setDropdownOpen(false);
+    navigate('/'); 
+    await supabase.auth.signOut();
+  };
+  
+  
+  getUser();
+  
   // --- CHANGE 2: Define the extended range for "Challenge Yourself" ---
   const pitchExtension = 0.1; // 10% extension
   const extendedLowestPitch = userLowestPitch * (1 - pitchExtension); // 10% lower
@@ -103,6 +119,27 @@ const SongListPage: React.FC = () => {
   return (
     <div className="song-list-page">
       <div className="background-glow"></div>
+
+{user && (
+  <div className="user-menu">
+    <div
+      className="user-greeting"
+      onClick={() => setDropdownOpen(!dropdownOpen)}
+    >
+      Hi, {user.user_metadata?.first_name?.charAt(0).toUpperCase() +
+      user.user_metadata?.first_name?.slice(1) || 'there'} 
+    </div>
+
+    {dropdownOpen && (
+      <div className="dropdown-menu">
+        <button className="dropdown-item" onClick={handleLogout}>
+          Sign Out
+        </button>
+      </div>
+    )}
+  </div>
+)}
+
       <aside className="sidebar">
         <div className="logo-container" onClick={() => navigate("/")}>
           <img src={logo} alt="MicDrop Logo" className="logo-img" />
