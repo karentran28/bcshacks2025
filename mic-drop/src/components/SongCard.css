@@ -47,12 +47,10 @@
 
 
 .song-title {
-  font-weight: normal;
-  font-family: var(--font);
-  color: white;
-  margin: 0;
-  white-space: nowrap;
-  /* background-color: pink; */
+  font-size: var(--heading-size, 25px) !important;
+  font-family: var(--font) !important;
+  text-align: left !important;
+  color: white !important;
 }
 
 .song-artist,
@@ -114,7 +112,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text; 
-  text-fill-color: transparent; 
+  /* text-fill-color: transparent;  */
 
   
 }
