@@ -1,5 +1,5 @@
 // import { useState } from 'react'
-import LandingPage from './pages/LandingPage.tsx'
+import LandingPage from './pages/LowPage.tsx'
 
 function App() {
   return (
