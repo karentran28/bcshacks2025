@@ -1,5 +1,4 @@
-// import { useState } from 'react'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from './pages/LandingPage.tsx'
 import React, { useState } from 'react'
 import KaraokePlayer from './components/karaokePlayer.tsx'

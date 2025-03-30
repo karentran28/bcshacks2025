@@ -13,6 +13,13 @@
   background-color: var(--background-color);
 }
 
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -30,21 +37,22 @@ body {
   min-height: 100vh;
 }
 
-
-
 button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
+  font-size: 1.5em;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #1E1E1E;
   cursor: pointer;
-  transition: border-color 0.25s;
+  border-color: var(--accent-color);
+  transition: box-shadow 0.25s, border-color 0.25s;
+  color: var(--text-color);
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--header-color);
+  box-shadow: 0 0 0 1px var(--header-color);
+  transform: scale(1.05);
 }
 button:focus,
 button:focus-visible {
