@@ -49,9 +49,9 @@ const LowPage: React.FC<{ setIsRecording: (v: boolean) => void }> = ({ setIsReco
       {isRecordingLocal && <div className="recording-overlay" />}
 
       <h1 className="title-text">
-        Let out your deepest ‘ooo’ – hold it for 5 seconds.
+        Let out your deepest ‘ooo’ <br /> Hold it for 5 seconds.
       </h1>
-      <h3>Keep it going as the glow moves</h3>
+      <h3 className='hint'>Keep it going as the glow moves</h3>
 
       <div className="content-wrapper">
         <button
